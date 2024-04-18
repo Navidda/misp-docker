@@ -49,8 +49,8 @@ services:
       - redis
       - db
     ports:
-      - "80:80"
-      - "443:443"
+      - "809:80"
+      - "4439:443"
     volumes:
       - "./configs/:/var/www/MISP/app/Config/"
       - "./logs/:/var/www/MISP/app/tmp/logs/"
@@ -128,5 +128,14 @@ services:
     depends_on:
       - redis
 
+  dataspace-feed:
+    image: nginx:alpine
+    volumes:
+      - trueconnector_be_dataapp_consumer_data:/usr/share/nginx/html/
+    ports:
+      - "8080:80"
+
 volumes:
-    mysql_data:
+    mysql_data: {}
+    trueconnector_be_dataapp_consumer_data:
+      external: true
